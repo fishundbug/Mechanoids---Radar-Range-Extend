@@ -9,12 +9,12 @@
   </supportedVersions>
   <modDependencies>
     <li>
-      <packageId>Nyaron.MechanoidsTotalWarfare</packageId>
+      <packageId>Nyaron.MechanoidTotalWarfare</packageId>
       <displayName>Mechanoids: Total Warfare</displayName>
     </li>
   </modDependencies>
   <loadAfter>
-    <li>Nyaron.MechanoidsTotalWarfare</li>
+    <li>Nyaron.MechanoidTotalWarfare</li>
   </loadAfter>
   <description>将反隐雷达（Spectre Detection Array / NCL_Overwatch_Nexus）的有效反隐半径从64格提升至128格。
 
