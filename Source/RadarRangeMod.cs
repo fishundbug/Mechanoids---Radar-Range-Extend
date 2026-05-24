@@ -2,11 +2,12 @@ using System;
 using System.Reflection;
 using UnityEngine;
 using Verse;
+using HarmonyLib;
 
 namespace RadarRangeExtend
 {
     /// <summary>
-    /// Mod 主类：提供设置 UI 并在设置变更 / 游戏加载时应用反隐半径
+    /// Mod 主类：提供设置 UI 并在设置变更 / 游戏加载时应用反隐半径，同时通过 Harmony 修复原版存档开关 Bug
     /// </summary>
     public class RadarRangeMod : Mod
     {
@@ -32,6 +33,48 @@ namespace RadarRangeExtend
 
             // 在所有 Def 加载完毕后应用设置
             LongEventHandler.ExecuteWhenFinished(ApplyRadarRange);
+
+            // 动态初始化 Harmony 补丁修复开关不保存的 Bug
+            InitializeHarmonyPatches();
+        }
+
+        /// <summary>
+        /// 动态注册 Harmony 补丁，完全解耦编译依赖
+        /// </summary>
+        private void InitializeHarmonyPatches()
+        {
+            try
+            {
+                var harmony = new Harmony("fishundbug.RadarRangeExtend");
+
+                var targetType = AccessTools.TypeByName("NCL.CompAntiInvisibilityField");
+                if (targetType == null)
+                {
+                    Log.Warning("[RadarRangeExtend] 未找到类型 NCL.CompAntiInvisibilityField，跳过存档状态修复补丁。");
+                    return;
+                }
+
+                var targetMethod = AccessTools.Method(targetType, "PostSpawnSetup");
+                if (targetMethod == null)
+                {
+                    Log.Warning("[RadarRangeExtend] 未找到方法 NCL.CompAntiInvisibilityField.PostSpawnSetup，跳过存档状态修复补丁。");
+                    return;
+                }
+
+                var prefixMethod = AccessTools.Method(typeof(FixRadarSaveLoadPatch), nameof(FixRadarSaveLoadPatch.Prefix));
+                var postfixMethod = AccessTools.Method(typeof(FixRadarSaveLoadPatch), nameof(FixRadarSaveLoadPatch.Postfix));
+
+                harmony.Patch(targetMethod,
+                    prefix: new HarmonyMethod(prefixMethod),
+                    postfix: new HarmonyMethod(postfixMethod)
+                );
+
+                Log.Message("[RadarRangeExtend] 成功应用雷达存档状态修复补丁（基于反射动态解耦）！");
+            }
+            catch (Exception ex)
+            {
+                Log.Error("[RadarRangeExtend] 应用 Harmony 补丁时发生异常: " + ex);
+            }
         }
 
         /// <summary>
@@ -116,6 +159,38 @@ namespace RadarRangeExtend
             }
 
             Log.Warning("[RadarRangeExtend] 未在 " + TargetDefName + " 中找到 " + CompTypeName);
+        }
+    }
+
+    /// <summary>
+    /// 修复雷达开关无法保存的 Harmony 补丁类
+    /// 使用 __state 状态传递，既保证了数据安全隔离，又完全不显式依赖目标 DLL
+    /// </summary>
+    public static class FixRadarSaveLoadPatch
+    {
+        public static void Prefix(ThingComp __instance, bool respawningAfterLoad, out bool? __state)
+        {
+            __state = null;
+            if (respawningAfterLoad && __instance != null)
+            {
+                var field = __instance.GetType().GetField("isActivated", BindingFlags.NonPublic | BindingFlags.Instance);
+                if (field != null)
+                {
+                    __state = (bool)field.GetValue(__instance);
+                }
+            }
+        }
+
+        public static void Postfix(ThingComp __instance, bool respawningAfterLoad, bool? __state)
+        {
+            if (respawningAfterLoad && __state.HasValue && __instance != null)
+            {
+                var field = __instance.GetType().GetField("isActivated", BindingFlags.NonPublic | BindingFlags.Instance);
+                if (field != null)
+                {
+                    field.SetValue(__instance, __state.Value);
+                }
+            }
         }
     }
 }

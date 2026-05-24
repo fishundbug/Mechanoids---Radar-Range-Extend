@@ -1,0 +1,5 @@
+D:\Programming\Mechanoids - Radar Range Extend\Source\obj\Debug\RadarRangeExtend.csproj.AssemblyReference.cache
+D:\Programming\Mechanoids - Radar Range Extend\Source\obj\Debug\RadarRangeExtend.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programming\Mechanoids - Radar Range Extend\Source\obj\Debug\RadarRangeExtend.csproj.CoreCompileInputs.cache
+D:\Programming\Mechanoids - Radar Range Extend\Assemblies\RadarRangeExtend.dll
+D:\Programming\Mechanoids - Radar Range Extend\Source\obj\Debug\RadarRangeExtend.dll

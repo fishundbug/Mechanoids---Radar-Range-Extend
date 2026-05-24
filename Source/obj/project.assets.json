@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     ".NETFramework,Version=v4.7.2": {
+      "Lib.Harmony/2.3.3": {
+        "type": "package",
+        "compile": {
+          "lib/net472/0Harmony.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net472/_._": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
       "Microsoft.NETFramework.ReferenceAssemblies/1.0.3": {
         "type": "package",
         "dependencies": {
@@ -17,6 +30,51 @@
     }
   },
   "libraries": {
+    "Lib.Harmony/2.3.3": {
+      "sha512": "qxO8d2q7luoY8mTfCStQFOgRSd3dWZSS0Ffi5nrjX4qFkZxEBAEvNh5b/ZejTl2kY0fJs62LmfRJkBBTeiuuyQ==",
+      "type": "package",
+      "path": "lib.harmony/2.3.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "HarmonyLogo.png",
+        "LICENSE",
+        "README.md",
+        "lib.harmony.2.3.3.nupkg.sha512",
+        "lib.harmony.nuspec",
+        "lib/net35/0Harmony.dll",
+        "lib/net35/0Harmony.pdb",
+        "lib/net35/0Harmony.xml",
+        "lib/net452/0Harmony.dll",
+        "lib/net452/0Harmony.pdb",
+        "lib/net452/0Harmony.xml",
+        "lib/net472/0Harmony.dll",
+        "lib/net472/0Harmony.pdb",
+        "lib/net472/0Harmony.xml",
+        "lib/net48/0Harmony.dll",
+        "lib/net48/0Harmony.pdb",
+        "lib/net48/0Harmony.xml",
+        "lib/net5.0/0Harmony.dll",
+        "lib/net5.0/0Harmony.pdb",
+        "lib/net5.0/0Harmony.xml",
+        "lib/net6.0/0Harmony.dll",
+        "lib/net6.0/0Harmony.pdb",
+        "lib/net6.0/0Harmony.xml",
+        "lib/net7.0/0Harmony.dll",
+        "lib/net7.0/0Harmony.pdb",
+        "lib/net7.0/0Harmony.xml",
+        "lib/net8.0/0Harmony.dll",
+        "lib/net8.0/0Harmony.pdb",
+        "lib/net8.0/0Harmony.xml",
+        "lib/netcoreapp3.0/0Harmony.dll",
+        "lib/netcoreapp3.0/0Harmony.pdb",
+        "lib/netcoreapp3.0/0Harmony.xml",
+        "lib/netcoreapp3.1/0Harmony.dll",
+        "lib/netcoreapp3.1/0Harmony.pdb",
+        "lib/netcoreapp3.1/0Harmony.xml",
+        "lib/netstandard2.0/_._"
+      ]
+    },
     "Microsoft.NETFramework.ReferenceAssemblies/1.0.3": {
       "sha512": "vUc9Npcs14QsyOD01tnv/m8sQUnGTGOw1BCmKcv77LBJY7OxhJ+zJF7UD/sCL3lYNFuqmQEVlkfS4Quif6FyYg==",
       "type": "package",
@@ -411,6 +469,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.7.2": [
+      "Lib.Harmony >= 2.3.3",
       "Microsoft.NETFramework.ReferenceAssemblies >= 1.0.3"
     ]
   },
@@ -420,11 +479,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\Programming\\Mechanoids - Radar Range Extend\\Source\\RadarRangeExtend.csproj",
+      "projectUniqueName": "D:\\Programming\\Mechanoids - Radar Range Extend\\Source\\RadarRangeExtend.csproj",
       "projectName": "RadarRangeExtend",
-      "projectPath": "d:\\Programming\\Mechanoids - Radar Range Extend\\Source\\RadarRangeExtend.csproj",
+      "projectPath": "D:\\Programming\\Mechanoids - Radar Range Extend\\Source\\RadarRangeExtend.csproj",
       "packagesPath": "C:\\Users\\fishu\\.nuget\\packages\\",
-      "outputPath": "d:\\Programming\\Mechanoids - Radar Range Extend\\Source\\obj\\",
+      "outputPath": "D:\\Programming\\Mechanoids - Radar Range Extend\\Source\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\fishu\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -456,6 +515,12 @@
       "net472": {
         "targetAlias": "net472",
         "dependencies": {
+          "Lib.Harmony": {
+            "include": "Compile, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[2.3.3, )"
+          },
           "Microsoft.NETFramework.ReferenceAssemblies": {
             "suppressParent": "All",
             "target": "Package",
