@@ -16,7 +16,7 @@ namespace RadarRangeExtend
         // 原版默认半径，用于 UI 显示参考
         private const float DefaultRadius = 64f;
         private const float MinRadius = 10f;
-        private const float MaxRadius = 500f;
+        private const float MaxRadius = 192f;
 
         // 目标 Def 和字段名
         private const string TargetDefName = "NCL_Overwatch_Nexus";
